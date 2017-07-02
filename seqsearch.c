@@ -10,7 +10,6 @@ int main(int argc, char **argv)
         "just",
         "quite",
         "really",
-        "test",
         NULL
     };
     
