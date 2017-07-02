@@ -1,3 +1,6 @@
+/* this version does not exit gracefully
+ * if match is not found */
+
 #include <stdio.h>
 
 int main(int argc, char **argv)
@@ -7,6 +10,7 @@ int main(int argc, char **argv)
         "just",
         "quite",
         "really",
+        "test",
         NULL
     };
     
