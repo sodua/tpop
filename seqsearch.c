@@ -2,27 +2,21 @@
  * if match is not found */
 
 #include <stdio.h>
+#include "hcodes-seq.h"
+#define NELEMS(array) (sizeof(array) / sizeof(array[0]))
 
 int main(int argc, char **argv)
 {
-    char *flab[] = {
-        "actually",
-        "just",
-        "quite",
-        "really",
-        NULL
-    };
-    
-    int result = lookup(argv[1], flab);
-    printf(flab[result]);
+    int result = lookup("ltimes", htmlchars, NELEMS(htmlchars));
+    printf("%d", result);
     printf("\n");
 }
 /* lookup: sequential search for word in array */
-int lookup(char *word, char *array[])
+int lookup(char *name, Nameval tab[], int ntab)
 {
     int i;
-    for (i = 0; array[i] != NULL; i++)
-        if (strcmp(word, array[i]) == 0)
+    for (i = 0; tab[i].name != NULL; i++)
+        if (strcmp(name, tab[i].name) == 0)
             return i;
     return -1;
 }
