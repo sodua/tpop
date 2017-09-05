@@ -1,12 +1,11 @@
-fndef HEADER_GUARD_FOR_NAMEVAL
+#ifndef HEADER_GUARD_FOR_NAMEVAL
 #define HEADER_GUARD_FOR_NAMEVAL
 typedef struct Nameval Nameval;
 struct Nameval {
         char    *name;
-        int     value;
         };
 
-Nameval htmlchars[] = {
+Nameval dictwords[] = {
 "A",
 "A's",
 "AA's",

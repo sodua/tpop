@@ -2,12 +2,12 @@
  * if match is not found */
 
 #include <stdio.h>
-#include "hcodes-seq.h"
+#include "words.h"
 #define NELEMS(array) (sizeof(array) / sizeof(array[0]))
 
 int main(int argc, char **argv)
 {
-    int result = lookup(argv[1], htmlchars, NELEMS(htmlchars));
+    int result = lookup(argv[1], dictwords, NELEMS(dictwords));
     printf("%d", result);
     printf("\n");
 }

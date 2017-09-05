@@ -1,15 +1,15 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <string.h>
-#include "hcodes.h"
+#include "words.h"
 
 #define NELEMS(array) (sizeof(array) / sizeof(array[0]))
 int main(int argc, char **argv)
 {
     int half;
-    half = lookup(argv[1], htmlchars, NELEMS(htmlchars));
+    half = lookup(argv[1], dictwords, NELEMS(dictwords));
     printf("%d\n", half);
-//    printf("The HTML table has %d words\n", NELEMS(htmlchars));
+//    printf("The HTML table has %d words\n", NELEMS(dictwords));
 }
 
 /* lookup: binary search for name in tab; return index */
