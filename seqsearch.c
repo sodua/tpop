@@ -7,7 +7,7 @@
 
 int main(int argc, char **argv)
 {
-    int result = lookup("ltimes", htmlchars, NELEMS(htmlchars));
+    int result = lookup(argv[1], htmlchars, NELEMS(htmlchars));
     printf("%d", result);
     printf("\n");
 }
