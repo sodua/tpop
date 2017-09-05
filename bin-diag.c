@@ -7,7 +7,7 @@
 int main(int argc, char **argv)
 {
     int half;
-    half = lookup("ltimes", htmlchars, NELEMS(htmlchars));
+    half = lookup(argv[1], htmlchars, NELEMS(htmlchars));
     printf("%d\n", half);
 //    printf("The HTML table has %d words\n", NELEMS(htmlchars));
 }
