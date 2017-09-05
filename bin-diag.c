@@ -21,22 +21,22 @@ int lookup(char *name, Nameval tab[], int ntab)
     high = ntab - 1;
     while (low <= high) {
         mid = (low + high) / 2;
-//        printf("mid now %d\n", mid);
+        printf("mid now %d\n", mid);
         cmp = strcmp(name, tab[mid].name);
-//        printf("comparison value: %d\n", cmp);
+        printf("comparison value: %d\n", cmp);
         if (cmp < 0) {
             high = mid - 1;
-//            printf("searching down, high=%d", high);
-//            printf("\n");
+            printf("searching down, high=%d", high);
+            printf("\n");
         }
         else if (cmp > 0) {
             low = mid + 1;
-//            printf("searching up, low=%d", low);
-//            printf("\n");
+            printf("searching up, low=%d", low);
+            printf("\n");
         }
         else /*found match */ {
-//            printf("found! index=%d", mid);
-//            printf("\n");
+            printf("found! index=%d", mid);
+            printf("\n");
             return mid;
         }
     }
