@@ -4,6 +4,7 @@
 #include "words.h"
 
 #define NELEMS(array) (sizeof(array) / sizeof(array[0]))
+
 int main(int argc, char **argv)
 {
     int half;
