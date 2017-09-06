@@ -5,10 +5,9 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <string.h>
+#include "randnums.h"
 
 #define NELEMS(array) (sizeof(array) / sizeof(array[0]))
-
-int v[] = {3, 9, 14, 8, 5, 2, 1, 6};
 
 int main(int argc, char **argv)
 {
@@ -16,8 +15,7 @@ int main(int argc, char **argv)
 
     quicksort(v, NELEMS(v));
     for (i = 0; i < NELEMS(v); i++)
-        printf("%d ", v[i]);
-    printf("\n");
+        printf("%d\n", v[i]);
 }
 
 /* quicksort: sort v[0]..v[n-1] into increasing order */
