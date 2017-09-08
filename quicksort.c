@@ -1,6 +1,5 @@
 /* Implementation of a quicksort algorithm from pg. 33
  * of the book The Practice of Programming */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
@@ -8,6 +7,9 @@
 #include "randnums.h"
 
 #define NELEMS(array) (sizeof(array) / sizeof(array[0]))
+
+void quicksort(int v[], int n);
+void swap (int[], int i, int j);
 
 int main(int argc, char **argv)
 {

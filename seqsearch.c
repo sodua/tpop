@@ -5,6 +5,8 @@
 #include "words.h"
 #define NELEMS(array) (sizeof(array) / sizeof(array[0]))
 
+int lookup(char *name, Nameval tab[], int ntab);
+
 int main(int argc, char **argv)
 {
     int result = lookup(argv[1], dictwords, NELEMS(dictwords));
