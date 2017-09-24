@@ -8,15 +8,12 @@ int main(void)
     int c;
 
     while ((c = getchar()) != EOF) {
-        if (c != ' ') {
-            putchar(c);
-        }
         if (c == ' ') {
             putchar(' ');
+            while ((c = getchar()) == ' ') {
+                continue;
+            }
         }
-        while ((c = getchar()) == ' ') {
-            continue;
-        }
-            putchar(c);
+        putchar(c);
     }
 }
