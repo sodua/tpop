@@ -1,21 +1,17 @@
 #include <stdio.h>
 
-#define IN  1   /* inside a word */
-#define OUT 0   /* outside a word */
-
-/* count lines, words, and characters in input */
+/* Write a program that prints its input one word per line. */
 int main(void)
 {
-    int c, state;
+    int c;
 
     while ((c = getchar()) != EOF) {
-        state = IN;
-        if (c == ' ' || c == '\n' || c == '\t')
-            state = OUT;
-        if (state == OUT) {
-            state = IN;
+        if (c == ' ' || c == '\n' || c == '\t') {
             putchar('\n');
-        }
-        putchar(c);
+            while ((c = getchar()) == ' ' || c == '\n' || c == '\t') {
+                continue;
+            }
+       }
+       putchar(c);
     }
 }
