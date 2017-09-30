@@ -6,10 +6,8 @@
 /* count lines, words, and characters in input */
 int main(void)
 {
-    int c, nl, nw, nc, state;
+    int c, state;
 
-    state = OUT;
-    nl = nw = nc = 0;
     while ((c = getchar()) != EOF) {
         state = IN;
         if (c == ' ' || c == '\n' || c == '\t')
