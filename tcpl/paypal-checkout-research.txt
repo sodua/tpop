@@ -1,0 +1,21 @@
+Google Checkout or PayPal.  PayPal no longer requires customers to have an account.  Google Checkout allows you to process up to 10 times your AdWords expenditure in sales for free.  So, use both?
+
+Google Checkout requires tax ID EIN or credit card and social security number, if you provide only a credit card number a monthly payout limit is imposed.
+
+Google Checkout charges a flat 2% and $0.20 per transaction.  PayPal charges 2.9% and $0.30 per transaction.
+
+With a merchant account and gateway, different banks apply different fees based on transaction types.
+
+PayPal Standard requires more steps for a customer to pay with a credit card.  A PayPal Business account with PayPal's Website Payments Pro is cheaper beyond a certain sale threshold.
+
+PayPal Standard has the customer enter contact info twice, once for you and once for PayPal.
+
+PayPal Standard has the customer wait for PayPal to approve the transaction.  Website Payments Pro tells them on the page whether the transaction was approved.
+
+PayPal Standard takes the customer from your site to PayPal then back.  Website Payments Pro allows them to stay on your site.
+
+Website Payments Pro allows immediate credit card processing and allows customers to pay from their PayPal account, but the transaction happens instantly, unlike PayPal Standard.
+
+Store -> Payment Gateway -> Merchant Account
+
+Possible merchant accounts: QuickBooks Merchant Services, or Storefront (Integration with QuickBooks)
