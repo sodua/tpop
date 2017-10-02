@@ -11,7 +11,7 @@ int main(void)
             while ((c = getchar()) == ' ' || c == '\n' || c == '\t') {
                 continue;
             }
-       }
-       putchar(c);
+        }
+        putchar(c);
     }
 }
