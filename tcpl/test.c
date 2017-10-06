@@ -2,5 +2,5 @@
 
 int main(void)
 {
-    printf("%d %d\n", 'a', 'z');
+    printf("%d %d\n", '0', '9');
 }
