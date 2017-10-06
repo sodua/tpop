@@ -6,10 +6,9 @@
 
 int main(void)
 {
-    int c, i, j, nchar;
+    int c, i, j;
     int alpha[123];
 
-    nchar = 0;
     for (i = 0; i < 123; i++)
             alpha[i] = 0;
 
@@ -25,7 +24,11 @@ int main(void)
     }
 
     for (i = 48; i <= 122; ++i) {
-        if (alpha[i] > 0)
+        if (alpha[i] > 0) {
             printf("%c: %d\n", i, alpha[i]);
+            for (j = 0; j < alpha[i]; ++j)
+                printf("|");
+            printf("\n");
+        }
     }
 }
