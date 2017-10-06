@@ -1,8 +1,7 @@
-#include <stdio.h>
-
 /* Write a program to print a histogram of the lengths of words in
  * its input. It is easy to draw the histogram with the bars horizontal;
  * a veritcal orientation is more challenging. */
+#include <stdio.h>
 
 int main(void)
 {
@@ -21,6 +20,7 @@ int main(void)
             ++nchar;
         wlen[nchar] += 1;
     }
+    
     for (i = 1; i < 30; ++i) {
         printf("%2d:", i);
         for (j = 0; j < wlen[i]; ++j)
