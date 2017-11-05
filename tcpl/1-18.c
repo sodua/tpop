@@ -1,4 +1,5 @@
-/* This program finds the longest line in input */
+/* Write a program to remove trailing blanks and tabs from each
+ * line of input, and to delete entirely blank lines */
 #include <stdio.h>
 #define MAXLINE 1000    /* maximum input line size */
 
@@ -12,15 +13,19 @@ int main(void)
     int max;        /* maximum length seen so far */
     char line[MAXLINE];     /* current input line */
     char longest[MAXLINE];  /* longest line saved here */
+    int i;
 
     max = 0;
-    while ((len = mygetline(line, MAXLINE)) > 0)
-        if (len > max) {
-            max = len;
+    while ((len = mygetline(line, MAXLINE)) > 0) {
+        i = 2; 
+        if (len > 1)
             copy(longest, line);
+        while (longest[len - i] == '\t' || longest[len - i] == ' ') {
+            longest[len - i] = '\0';
+            ++i;
         }
-    if (max > 0)    /* there was a line */
-        printf("%s", longest);
+        printf("%s\n", longest);
+    }
     return 0;
 }
 

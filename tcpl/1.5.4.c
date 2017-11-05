@@ -13,6 +13,7 @@ int main(void)
     while ((c = getchar()) != EOF) {
         ++nc;
         if (c == '\n')
+            printf("\\n\n");
             ++nl;
         if (c == ' ' || c == '\n' || c == '\t')
             state = OUT;

@@ -1,4 +1,7 @@
-a a a
-to to to to
-the the the the the
-four four four four four four
+this line ends with a tab	
+this line ends normally
+this line ends with two tabs		
+this line ends with a tab and a space	 
+this line ends normally
+
+this line ends with two tabs and two spaces		  
