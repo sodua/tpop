@@ -14,6 +14,10 @@ int main(void)
             printf("\\t");
         else if (c == ' ')
             printf("SPACE");
+        else if (c == '\n')
+            printf("\\n\n");
+        else if (c == '\0')
+            printf("\\0");
         else
             putchar(c);
     }

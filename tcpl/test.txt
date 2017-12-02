@@ -1,7 +1,12 @@
 this line ends with a tab	
 this line ends normally
+
+
+
 this line ends with two tabs		
 this line ends with a tab and a space	 
+a
+this line ends normally
 this line ends normally
 
 this line ends with two tabs and two spaces		  

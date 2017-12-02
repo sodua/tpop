@@ -12,19 +12,17 @@ int main(void)
     int len;        /* current line length */
     int max;        /* maximum length seen so far */
     char line[MAXLINE];     /* current input line */
-    char longest[MAXLINE];  /* longest line saved here */
     int i;
 
     max = 0;
-    while ((len = mygetline(line, MAXLINE)) > 0) {
+    while (len = mygetline(line, MAXLINE)) {
         i = 2; 
-        if (len > 1)
-            copy(longest, line);
-        while (longest[len - i] == '\t' || longest[len - i] == ' ') {
-            longest[len - i] = '\0';
+        while (line[len - i] == '\t' || line[len - i] == ' ') {
+            line[len - i] = '\0';
             ++i;
         }
-        printf("%s\n", longest);
+        if (len != 1)
+            printf("%s\n", line);
     }
     return 0;
 }
@@ -37,7 +35,7 @@ int mygetline(char s[], int lim)
     for (i=0; i<lim-1 && (c=getchar())!=EOF && c!='\n'; ++i)
         s[i] = c;
     if (c == '\n') {
-        s[i] = c;
+        s[i] = '\0';
         ++i;
     }
     s[i] = '\0';
