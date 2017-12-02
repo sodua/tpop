@@ -10,18 +10,16 @@ void copy(char to[], char from[]);
 int main(void)
 {
     int len;        /* current line length */
-    int max;        /* maximum length seen so far */
     char line[MAXLINE];     /* current input line */
     int i;
 
-    max = 0;
     while (len = mygetline(line, MAXLINE)) {
         i = 2; 
         while (line[len - i] == '\t' || line[len - i] == ' ') {
             line[len - i] = '\0';
             ++i;
         }
-        if (len != 1)
+        if (len > 1)
             printf("%s\n", line);
     }
     return 0;
