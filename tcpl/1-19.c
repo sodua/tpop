@@ -8,14 +8,13 @@ int main(void)
 {
     char forward[MAXLINE];
     char backward[MAXLINE];
-    int c, len;
+    int c, len, i;
     
     while ((len = mygetline(forward, MAXLINE)) > 0) {
         reverse(backward, forward, len);
-        printf("%s", backward);
+        for (i = 0; i < len; i++)
+            printf("%c", backward[i]);
     }
-    printf("%s", backward);
-    printf("\n");
 
     return 0;
 }
