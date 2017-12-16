@@ -12,8 +12,10 @@ int main(void)
     
     while ((len = mygetline(forward, MAXLINE)) > 0) {
         reverse(backward, forward, len);
-        printf("%c", backward[0]); 
+        printf("%s", backward);
     }
+    printf("%s", backward);
+    printf("\n");
 
     return 0;
 }
@@ -23,7 +25,7 @@ void reverse(char to[], char from[], int lim)
     int i, j;
 
     i = 0;
-    j = lim;
+    j = lim - 1;
     while((to[j] = from[i]) != '\0') {
         ++i;
         --j;
