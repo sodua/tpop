@@ -15,6 +15,7 @@ int main(void)
         for (i = 0; i < len; i++)
             printf("%c", backward[i]);
     }
+    printf("\n");
 
     return 0;
 }
