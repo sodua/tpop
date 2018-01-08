@@ -4,15 +4,12 @@
  * to reach a tab stop, which should be given preference? */
 
 #include <stdio.h>
-#define MAXLINE 1000
 #define TAB_SIZE 4
 
 int main(void)
 {
-    int c, i;
+    int c;
     int numspace;       /* consecutive spaces */
-    int len;            /* current line length */
-    char line[MAXLINE]; /* current input line */
     
     while ((c = getchar()) != EOF) {
         numspace = 0;
