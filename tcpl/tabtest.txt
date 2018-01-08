@@ -1,1 +1,1 @@
-eight spaces        then three words        followed by eight spaces        
+eight spaces        then  three words        followed by eight spaces        

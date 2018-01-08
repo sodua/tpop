@@ -7,8 +7,6 @@
 #define MAXLINE 1000
 #define TAB_SIZE 4
 
-int mygetline(char line[], int maxline);
-
 int main(void)
 {
     int c, i;
@@ -34,19 +32,4 @@ int main(void)
         }
         putchar(c);
     }
-}
-
-/* mygetline: read a line into s, return length */
-int mygetline(char s[], int lim)
-{
-    int c, i;
-
-    for (i=0; i<lim-1 && (c=getchar())!=EOF && c!='\n'; ++i)
-        s[i] = c;
-    if (c == '\n') {
-        s[i] = '\0';
-        ++i;
-    }
-    s[i] = '\0';
-    return i;
 }
