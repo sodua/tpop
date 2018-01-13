@@ -12,6 +12,7 @@ int mygetline(char s[], int lim);
 int main(void)
 {
     char line[MAXLINE];         /* current line */
+    int lastspace;              /* column location of last space in line */
     int c, len, i;
     int still = 0;
     
@@ -23,8 +24,14 @@ int main(void)
         if (len > WRAPCOL) {
             while (len > 0) {
                 for (i = 0; i < WRAPCOL; ++i) {
-                    printf("%c", line[still]);
-                    ++still;
+                    if (line[i] != ' ' || line[i] !='\t')
+                        lastspace = i;
+                }
+                for (i = 0; i < lastspace; ++i) {
+                    if (line[still] != '\n') {
+                        printf("%c", line[still]);
+                        ++still;
+                    }
                 }
                 len -= still;
                 printf("\n");
