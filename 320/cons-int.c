@@ -8,23 +8,26 @@ int main(void)
 }    
 
 int gcd(int m, int n) {
-    int i, t, rem;
-    int still = 0;
+    int i = 0;
+	int t, rem;
+    int still = 1;
 
     t = n;
-    rem = m % n;
-    while (still = 1) {
-        while (rem != 0) {
-            rem = n % t;
-            --t;
-        }
-        if (rem == 0) {
-            while (n % t != 0) {
-                rem = n % t;
-                return t;
-            }
-            else
-                --t;
-        }
-    }
+	while (still == 1) {
+		while ((rem = m % t) != 0) {
+			--t;
+			++i;
+		}
+		if (rem == 0) {
+			if (n % t == 0) {
+				++i;
+				still = 0;
+				printf("iterations: %d\n", i);
+				return t;
+			}
+			else
+				--t;
+				++i;
+		}
+	}
 }
