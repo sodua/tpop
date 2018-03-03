@@ -64,7 +64,8 @@ void readfile(int numlines, char *fileName, FILE** readFile)
 {
     char buff[255];
     int i, cities, source, dest;
-    int errorFound = 0;
+    int errorFound;
+    int validTransactions = 0;    
     double avgtime;
     
     printf("Number of routes in file: %d\n", numlines);
@@ -74,6 +75,7 @@ void readfile(int numlines, char *fileName, FILE** readFile)
 
     for (i = 0; i < numlines; ++i)
     {
+        errorFound = 0;
         fgets(buff, 255, *readFile);
         sscanf(buff, "%d %d %lf", &source, &dest, &avgtime);
         printf("%d %d %lf", source, dest, avgtime);
@@ -98,8 +100,15 @@ void readfile(int numlines, char *fileName, FILE** readFile)
            errorFound = 1;
         }
         printf("\n");
-    }
 
+        if (errorFound == 0)
+        {
+            ++validTransactions;
+            
+        }
+
+    }
+    printf("\n%d\n\n", validTransactions);
     fclose(*readFile);
 }
 
