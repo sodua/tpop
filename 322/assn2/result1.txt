@@ -1,0 +1,47 @@
+ 3  4 14.79 
+ 5  4 -2.61 Error: Invalid time.
+ 2  5  0.53 
+ 6  3  5.10 Error: Invalid source city.
+ 2  5 15.99 
+ 5  1 19.12 
+ 5  2 -2.99 Error: Invalid time.
+ 5  5 14.18 Error: Duplicated source and destination.
+ 4  4  5.02 Error: Duplicated source and destination.
+ 1  1  5.80 Error: Duplicated source and destination.
+ 7  1 16.40 Error: Invalid source city.
+ 3  1  3.59 
+ 4  5 15.82 
+ 1  5 13.82 
+ 1  5 11.83 
+ 4  5 18.95 
+ 1  2  8.94 
+ 4  9 10.89 Error: Invalid destination city.
+ 5  2 18.56 
+ 3  1 14.78 
+
+Number of valid records: 12.
+
+From city  1 to city  2:  8.94 (1)
+From city  1 to city  3: --
+From city  1 to city  4: --
+From city  1 to city  5: 12.82 (2)
+
+From city  2 to city  1: --
+From city  2 to city  3: --
+From city  2 to city  4: --
+From city  2 to city  5:  8.26 (2)
+
+From city  3 to city  1:  9.18 (2)
+From city  3 to city  2: --
+From city  3 to city  4: 14.79 (1)
+From city  3 to city  5: --
+
+From city  4 to city  1: --
+From city  4 to city  2: --
+From city  4 to city  3: --
+From city  4 to city  5: 17.38 (2)
+
+From city  5 to city  1: 19.12 (1)
+From city  5 to city  2: 18.56 (1)
+From city  5 to city  3: --
+From city  5 to city  4: --
