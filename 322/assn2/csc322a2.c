@@ -72,13 +72,23 @@ void readfile(int numlines, char *fileName, FILE** readFile)
     fgets(buff, 255, *readFile);
     sscanf(buff, "%d", &cities);
     printf("%d\n", cities);
+    double route[cities][1];
+    int passes[cities];
+    for (i = 0; i <= cities; ++i)
+    {
+        passes[i] = 0;
+    }
+    for (i = 0; i <= cities; ++i)
+    {
+        route[i][0] = 0;
+    }
 
     for (i = 0; i < numlines; ++i)
     {
         errorFound = 0;
         fgets(buff, 255, *readFile);
         sscanf(buff, "%d %d %lf", &source, &dest, &avgtime);
-        printf("%d %d %lf", source, dest, avgtime);
+        printf("%d %d %5.2f", source, dest, avgtime);
         if (source < 1 || source > cities)
         {
             printf(" Error: Invalid source city.");
@@ -104,9 +114,11 @@ void readfile(int numlines, char *fileName, FILE** readFile)
         if (errorFound == 0)
         {
             ++validTransactions;
-            
+            route[source][dest] += avgtime;
+            ++passes[source];
+            route[source][dest] = (route[source][dest] / passes[source]);
+            printf("From city %d to city %d: %f (%d)\n", source, dest, route[source][dest], passes[source]);
         }
-
     }
     printf("\n%d\n\n", validTransactions);
     fclose(*readFile);
