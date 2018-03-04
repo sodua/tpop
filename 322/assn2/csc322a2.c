@@ -63,26 +63,26 @@ return 0;
 void readfile(int numlines, char *fileName, FILE** readFile)
 {
     char buff[255];
-    int i, cities, source, dest;
+    int i, j, cities, source, dest;
     int errorFound;
     int validTransactions = 0;    
     double avgtime;
     
+    struct record
+    {
+        int mysrc;
+        int mydest;
+        double myavg;
+        int mypass;
+    };
     printf("Number of routes in file: %d\n", numlines);
     fgets(buff, 255, *readFile);
     sscanf(buff, "%d", &cities);
     printf("%d\n", cities);
-    double route[cities][1];
-    int passes[cities];
-    for (i = 0; i <= cities; ++i)
-    {
-        passes[i] = 0;
-    }
-    for (i = 0; i <= cities; ++i)
-    {
-        route[i][0] = 0;
-    }
-
+    
+    int recordcount = cities * cities - 1;
+    struct record myrec[recordcount][recordcount];
+    
     for (i = 0; i < numlines; ++i)
     {
         errorFound = 0;
@@ -114,13 +114,36 @@ void readfile(int numlines, char *fileName, FILE** readFile)
         if (errorFound == 0)
         {
             ++validTransactions;
-            route[source][dest] += avgtime;
-            ++passes[source];
-            route[source][dest] = (route[source][dest] / passes[source]);
-            printf("From city %d to city %d: %f (%d)\n", source, dest, route[source][dest], passes[source]);
+            myrec[source][dest].mysrc = source;
+            myrec[source][dest].mydest = dest;
+            myrec[source][dest].myavg += avgtime;
+            ++myrec[source][dest].mypass;
+            if (myrec[source][dest].mypass > 0)
+            {
+                myrec[source][dest].myavg = (myrec[source][dest].myavg / myrec[source][dest].mypass);
+            }
         }
     }
-    printf("\n%d\n\n", validTransactions);
+    printf("\nNumber of valid records: %d.\n\n", validTransactions);
+    for (i = 1; i <= cities; ++i)
+    {
+        for (j = 1; j <= cities; ++j)
+        {
+            if (i != j)
+            {
+                if (myrec[i][j].mypass > 0)
+                {
+                    printf("From city %d to city %d: %5.2lf (%d)\n", 
+                        i, j, myrec[i][j].myavg, myrec[i][j].mypass);
+                }
+                else
+                {
+                    printf("From city %d to city %d: --\n", i, j);
+                }
+            }
+        } 
+        printf("\n");
+    }
     fclose(*readFile);
 }
 
