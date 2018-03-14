@@ -1,0 +1,31 @@
+
+Question 1) Give three examples from the MIPS architecture set of each of the architecture design principles:
+- Simplicity favors regularity.	
+a) Instructions have the same number of operands for each type of instruction.
+b) Only single line comments are used with the # symbol.
+c) Each instruction performs one operation at a time, such as add.
+
+-Make the common case fast.
+a) Only a few commonly used instructions to keep the instruction set small.
+b) Constants are put inside the instructions.
+c) Complex instructions are broken up into a sequence of simpler instructions.
+
+- Smaller is faster.
+a) The register set is kept small so that access to data is fast.
+b) Small SRAM array has a shorter critical path to data.
+c) Less hardware is needed to perform operations, so it is physically less circuits which will perform faster.
+
+-Good design demands good compromise.
+a) There is different format for instructions that perform different operations.
+b) The instructions are the same length for each format, no variable length.
+c)
+
+2) What is the range of instruction addresses to which conditional branches, such as beq and bne, can branch in MIPS? Give your answer in number of instructions relative to the conditional branch instruction. Also provide detailed steps as to how you arrived at this answer.   
+
+
+
+Question 3) Explain clearly what are the similarities and also the differences between the execution of the sw and lw instructions on the single cycle datapath? You should begin explaining similarities and differences from the very beginning of the datapath i.e. when the instruction address is read from the PC.
+
+Load Word (lw) : [ex: lw $t0, 1($a0)] This instruction takes the base address $a0 and adds a constant 1, representing (1*4) because there is 4 bytes in a word, adds the 4 to the base address to get to the location. Then takes the data in the memory location and assigns it to $t0 register. 
+
+Store word (sw) : [ex: sw $t0, 2($a0)] This instruction takes the value in the register $t0 and puts it in the memory location 2($a0), which is base address $a0 and adds a constant 2(4) for the actual location. 

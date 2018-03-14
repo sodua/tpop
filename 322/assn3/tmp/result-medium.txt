@@ -1,0 +1,35 @@
+Account Number: 101 (Moe's)
+Business Type: Restaurant
+Food Income: $72617.89
+Alcoholic Income: $67681.61
+Total Receipts: $140299.50
+Total Tax Due: $12478.87
+
+Account Number: 102 (Joe's)
+Business Type: Restaurant
+Food Income: $67304.65
+Alcoholic Income: $67371.63
+Total Receipts: $134676.28
+Total Tax Due: $18856.69
+
+Account Number: 201 (Ritz)
+Business Type: Hotel
+Room Income: $259757.29
+Suite Income: $233900.95
+Total Income: $493658.24
+Total Tax Due: $67031.71
+
+Account Number: 202 (Notel Motel)
+Business Type: Hotel
+Room Income: $254516.88
+Suite Income: $263478.17
+Total Income: $517995.05
+Total Tax Due: $70063.75
+
+Account Number: 612 (Six Twelve)
+Business Type: Convenience Store
+Newspaper Income: $30618.45
+Non-newspaper Income: $29724.44
+Total Income: $60342.89
+Total Tax Due: $2080.71
+

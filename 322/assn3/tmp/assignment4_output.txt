@@ -1,0 +1,12 @@
+Program Output:
+
+Week 1: The restaurant number is 1, food receipts are 14000.0, and drink receipts are 9000.0. The total tax is 720.0
+Week 2: The restaurant number is 1, food receipts are 12500.0, and drink receipts are 12500.0. The total tax is 1000.0
+Week 1: The restaurant number is 2, food receipts are 4000.0, and drink receipts are 3500.0. The total tax is 280.0
+Week 2: The restaurant number is 2, food receipts are 2500.0, and drink receipts are 3500.0. The total tax is 460.0
+Week 1: The account number is 612, newspaper receipts 2400.0, other receipts 6000.0. The tax due is 420.00000000000006
+Week 2: The account number is 612, newspaper receipts 1700.0, other receipts 5927.0. The tax due is 414.89000000000004
+Week 1: The hotel number is 3, total receipts are 25000.0, and taxes due 2000.0.
+Week 2: The hotel number is 3, total receipts are 21500.0, and taxes due 1290.0.
+Week 1: The hotel number is 4, total receipts are 5500.0, and taxes due 440.0.
+Week 2: The hotel number is 4, total receipts are 6575.0, and taxes due 526.0.
