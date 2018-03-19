@@ -4,8 +4,16 @@
 
 * CSC 320 Homework 2 Feb 8 
 * CSC 320 Homework 3 Mar 1
-* CSC 322 Assignment 2 Mar 4 
-* MAT 312 Polynomial Equations summary Mar 5
+* CSC 322 Week 10 Mar 26
+* CSC 322 Assignment 3 Mar 26 
+* CSC 322 Test 2 Apr 1
+* CSC 322 Assignment 4 Apr 8 
+
+Apr 9 Summer and Fall 2018 registration begins
+May 4 Last day of class
+Jun 4 Summer starts
+Jun 29 Summer ends
+July 30 8 week Summer ends
 
 $ Read Programming Languages Pragmatics
 $ Read Introduction to the Design and Analysis of Algorithms
