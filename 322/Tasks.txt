@@ -3,7 +3,8 @@
 - Send Mike billing info
 
 * CSC 320 Homework 4 Mar 27
-* CSC 322 Test 2 Apr 1
+* MAT 312 Hidden Figures summary Apr 2
+* CSC 320 Homework 5 Apr 5
 * CSC 322 Assignment 4 Apr 8 
 * CSC 322 Final Project (May 3)
 
