@@ -2,10 +2,10 @@
 - Buy sleeve case for Kindle
 - Send Mike billing info
 
-* CSC 320 Homework 4 Mar 27
-* MAT 312 Hidden Figures summary Apr 2
-* CSC 320 Homework 5 Apr 5
 * CSC 322 Assignment 4 Apr 8 
+* CSC 322 Week 12 Apr 8
+* MAT 312 The Collatz Conjecture Summary Apr 9
+* CSC 320 Homework 6 Apr 12
 * CSC 322 Final Project (May 3)
 
 Apr 9 Summer and Fall 2018 registration begins
