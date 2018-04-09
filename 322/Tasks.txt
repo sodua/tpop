@@ -3,7 +3,6 @@
 - Send Mike billing info
 
 * CSC 322 Assignment 4 Apr 8 
-* MAT 312 The Collatz Conjecture Summary Apr 9
 * CSC 320 Homework 6 Apr 12
 * CSC 322 Week 13 Apr 15
 * MAT 312 The Future of STEM Apr 16
