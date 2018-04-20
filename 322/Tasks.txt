@@ -4,7 +4,6 @@
 
 * CSC 322 Assignment 5 Apr 22
 * CSC 322 Week 14 Apr 22
-* MAT 312 Math Education Summary Apr 23
 * CSC 320 Homework 7 Apr 24 
 * CSC 322 Final Project May 3
 * MAT 312 Research Paper May 7
