@@ -2,9 +2,10 @@
 - Buy sleeve case for Kindle
 - Send Mike billing info
 
-* CSC 322 Week 14 Apr 22
 * CSC 320 Homework 7 Apr 24 
-* CSC 322 Final Project May 3
+* CSC 322 Final Report Apr 29
+* CSC 322 Final code Apr 29
+* CSC 322 Presentation May 3
 * MAT 312 Research Paper May 7
 * MAT 312 Lesson Plans May 7
 * MAT 312 PowerPoint May 7
