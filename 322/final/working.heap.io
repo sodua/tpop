@@ -5,9 +5,5 @@ file close
 data := words split("\n", " ")
 )
 
-processData := method(data,
-return data size println
-)
-
-/* processData(readFile ("data.txt")) */
-processData(list(5,8,1,12,3,4,7))
+processData := readFile ("data.txt")
+processData foreach(v, v println)
