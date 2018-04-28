@@ -81,5 +81,5 @@ processData := method(data,
 sortData(data)
 )
 
-processData(readFile ("data2.txt"))
+processData(readFile ("data.txt"))
 processData(list(207,554,171,542,677,91,227,492,611,904))

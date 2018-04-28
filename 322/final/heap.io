@@ -2,7 +2,11 @@ readFile := method(fileName,
 file := File with(fileName) open
 words := file readToEnd
 file close
-data := words split("\n", " ")
+numchars := words split(" ", "\n")
+data := List clone
+for(i, 0, numchars size - 1,
+    data append(numchars at(i) asNumber)
+    )
 )
 
 parentIndex := method(index,
@@ -81,5 +85,5 @@ processData := method(data,
 sortData(data)
 )
 
-processData(readFile ("data2.txt"))
-processData(list(207,554,171,542,677,91,227,492,611,904))
+processData(readFile ("data.txt"))
+processData(list(5,8,1,12,3,4,7))
