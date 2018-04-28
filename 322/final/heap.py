@@ -57,12 +57,12 @@ def downHeap (data, n, stop):
             data [n], data [largestChild] = data [largestChild], data [n] # swap
             downHeap (data, largestChild, stop)
 
+    print data[:]
 def sortHeap (data):
     n = len (data)
     for i in range (n-1, 0, -1):
         data [0], data [i] = data [i], data [0] # swap, and sorted element i
         downHeap (data, 0, i)
-
 def inorder (data, n = 0, depth = 0):
     nn = len (data)
     if n >= nn:
@@ -136,9 +136,9 @@ if __name__ == '__main__':
         heap = sortData (data)
         if not verifySorted (data):
             print ('***** Warning: Data are not sorted. *****')
-        print (heap)
-        print (data)
+        #print (heap)
+        #print (data)
         
     processData ([5,8,1,12,3,4,7])
-    processData (readFile ('data.txt'))
+    #processData (readFile ('data.txt'))
     

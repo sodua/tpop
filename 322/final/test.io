@@ -1,7 +1,9 @@
 data := (list(1,2,3,4,5))
-n := 4 
-p := 3
-temp := data at(n)
-data atPut(n, data at(p)) 
-data atPut(p, temp)
+n := data size
+for(i, n-1, 0, -1,
+    temp := data at(0)
+    data atPut(0, data at(i))
+    data atPut(i, temp)
+    i println
+)
 data println
