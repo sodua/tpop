@@ -69,6 +69,8 @@ def inorder (data, n = 0, depth = 0):
         return []
     left = leftChildIndex (n)
     right = rightChildIndex (n)
+    print left, right, n, depth
+    print "DATA AT N:", data[n]
     isRightChild = (n % 2) == 0 # only exception is for the root
     hasRightChild = (n * 2  + 2) < nn
     return inorder (data, left, depth+1) \
@@ -98,6 +100,7 @@ def drawTree (data):
     bars = ''
     results = []
     items = inorder (data)
+    print items[:]
     for value, depth, isRightChild, hasRightChild in items:
         results.append (str (bars))
         valueStr = str (value).center (3)
@@ -136,9 +139,9 @@ if __name__ == '__main__':
         heap = sortData (data)
         if not verifySorted (data):
             print ('***** Warning: Data are not sorted. *****')
-        #print (heap)
-        #print (data)
+        print (heap)
+        print (data)
         
-    processData ([5,8,1,12,3,4,7])
-    #processData (readFile ('data.txt'))
+    processData ([3,2,4,1])
+    processData (readFile ('data.txt'))
     

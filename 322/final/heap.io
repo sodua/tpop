@@ -1,3 +1,5 @@
+# in-place heap sort in the Io language, ported from Python
+# CSC 322 Final Project
 readFile := method(fileName,
 file := File with(fileName) open
 words := file readToEnd
@@ -22,12 +24,12 @@ return 2 * index + 2
 )
 
 upHeap := method(data, n,
-if(n == 0) then(return)
+if(n == 0) then(return) # the root has no parent, no upHeap possible
 p := parentIndex(n)
 if(n == 0) then(return) if(data at(p) >= data at(n)) then(return) else(
-temp := data at(n)
-data atPut(n, data at(p))
-data atPut(p, temp)
+temp := data at(n)        # swap
+data atPut(n, data at(p)) # swap
+data atPut(p, temp)       # swap
 upHeap(data, p)
     )
 )
@@ -41,11 +43,12 @@ for(i, 0, data size - 1,
 downHeap := method(data, n, stop,
 left := leftChildIndex(n)
 right := rightChildIndex(n)
+# case 1: already a leave and case 2: only has a left child:
 if(left >= stop) then(return) elseif (left < stop) and (right >= stop) then(
     if(data at(n) < data at(left)) then(
-        temp := data at(n)
-        data atPut(n, data at(left))
-        data atPut(left, temp)
+        temp := data at(n)              # swap
+        data atPut(n, data at(left))    # swap
+        data atPut(left, temp)          # swap
         downHeap(data, left, stop)
         ) else (return)
     ) else(
@@ -64,26 +67,101 @@ if(left >= stop) then(return) elseif (left < stop) and (right >= stop) then(
 sortHeap := method(data,
 n := data size
 for(i, n-1, 1, -1,
-    temp := data at(0)
-    data atPut(0, data at(i))
-    data atPut(i, temp)
+    temp := data at(0)          # swap, and sorted element i
+    data atPut(0, data at(i))   # swap, and sorted element i
+    data atPut(i, temp)         # swap, and sorted element i
     downHeap(data, 0, i)
-)
+    )
 )
 
+# the following inorder function is not fully debugged!
+inorder := method(data, n, depth, 
+nn := data size
+ordered := clone List
+if(n >= nn) then (return ())
+left := leftChildIndex(n)
+right := rightChildIndex(n)
+isRightChild := (n % 2) == 0 # only exception is for the root
+hasRightChild := (n * 2 + 2) < nn
+inorder(data, left, depth+1)
+ordered append(data at(n), depth, isRightChild, hasRightChild)
+inorder(data, right, depth+1)
+)
+
+# the following updateBars function is not debugged!
+updateBars := method(bars, depth, isRightChild, hasRightChild,
+location1 := 5 * depth - 4 # location for level depth - 1
+location2 := location1 + 5 # location for level depth
+if(bars size < location2) then(
+    bars := bars append(" ") * (location2 - bars size))
+if(depth == 0) then(
+    # this is the root, no bar to remove
+    continue)
+elseif(isRightChild) then(
+    # remove the bar at level depth - 1
+    bars := bars slice(0,location1)
+    bars append(bars slice(location1+1,bars size))
+    )
+else(
+    # add a bar at level depth - 1
+    bars := bars slice(0,location1)
+    bars append("|")
+    bars append(slice(location1+1,bars size))
+    )
+(hasRightChild) ifFalse(
+    # remove the bar at level depth, since no one else will remove it.
+    bars := bars slice(0,location2)
+    bars append(" ")
+    bars append(bars slice(location2+1,bars size))
+    )
+return bars asMutable rstrip
+)
+
+# the following drawTree function is not debugged!
 drawTree := method(data,
-n := data size
+bars := " "
+results := List clone
+items := List clone
+#items := inorder(data)
+for(i, 0, items size - 1,
+    results append(bars asString)
+    valueStr := value asString
+    (isRightChild) isFalse(
+        bars := updateBars(bars, depth, isRightChild, hasRightChild))
+    if(depth == 0) then(
+        results append(valueStr))
+    else(
+        barPrefix := ((depth-1) * 5)
+        results append(bars slice(0,barPrefix))
+        results append(" +---")
+        results append(valueStr))
+    (isRightChild) ifTrue(
+        bars := updateBars(bars, depth, isRightChild, hasRightChild))
+    results append(bars asString)
+    )
+return(results)
 )
 
 sortData := method(data,
 buildHeap(data)
+result := drawTree(data)
 sortHeap(data)
-data println
 )
+
+verifySorted := method(data,
+n := data size
+if (n < 2) then (return true) else(
+    # list of length less than two is sorted by definition
+    for(i, 1, n,
+        if(data at(i-1) > data at(i)) then(return false)) else(return(true))
+            )
+    )
 
 processData := method(data,
 sortData(data)
+if(verifySorted(data) != true) then ("***** Warning: Data is not sorted. *****" println)
+data println
 )
 
-processData(readFile ("data.txt"))
+processData(readFile("data.txt"))
 processData(list(5,8,1,12,3,4,7))
