@@ -18,14 +18,21 @@ int main(void)
     
     while ((len = mygetline(line, MAXLINE)) > 0) {
         if (len < WRAPCOL) {
-            for (i = 0; i < len; ++i)
+            for (i = 0; i < len; ++i) {
+                if (line[i] != ' ' && line[i] != '\t' && line[i] != '\n') {
+                    lastspace = i;
+                }
+            }
+            for (i = 0; i < lastspace + 1; ++i)
                 printf("%c", line[i]);
+            printf("\n");
         }
         if (len > WRAPCOL) {
             while (len > 0) {
                 for (i = 0; i < WRAPCOL; ++i) {
-                    if (line[i] != ' ' || line[i] !='\t')
+                    if (line[i] != ' ' && line[i] !='\t' && line[i] != '\n') {
                         lastspace = i;
+                    }
                 }
                 for (i = 0; i < lastspace; ++i) {
                     if (line[still] != '\n') {
@@ -33,11 +40,11 @@ int main(void)
                         ++still;
                     }
                 }
+                printf("\nlen = %d, i = %d, still = %d\n", len, i, still);
                 len -= still;
                 printf("\n");
             }
         }
-       still = 0;
     }
 
     return 0;
