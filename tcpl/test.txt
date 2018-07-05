@@ -1,7 +1,12 @@
 /* comment line one */
 NOT COMMENT LINE TWO
+/* comment */ text after comment
 /* multi
 line
 comment
 three */
 /* */
+/**/
+inline /* comment */ then more text
+previous line was inline
+another inline /*comment*/

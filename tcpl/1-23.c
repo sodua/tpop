@@ -19,15 +19,17 @@ int main(void)
             if (line[i] == '/' && line[i+1] == '*') {
                 inside = 1;
             }
-            if (inside == 0) {
+            if (!inside) {
                 printf("%c", line[i]);
             }
-            if (line[i] == '*' && line[i+1] == '/') {
+            if ((inside) && line[i] == '*' && line[i+1] == '/') {
+                if (line[i+2] == '\n') {
+                    ++i;
+                }
                 inside = 0;
                 ++i;
             }
         } 
-
     }
 
     return 0;
