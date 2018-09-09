@@ -25,7 +25,7 @@ void squeeze(char s1[], int c)
 {
     int i, j;
 
-    for (i = j = 0; s1[i] != '\0'; i++)
+    for (i = j = 0; s1[i] != '\0'; ++i)
     {
         if (s1[i] != c)
         {
