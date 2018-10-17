@@ -54,11 +54,14 @@ def RR(ready_queue, quantum):
             my_quantum -= 1
             clock_time += 1
             running_process.sim_run()
+            print(running_process, "q:", my_quantum, "c:", clock_time)
             if running_process.is_done():
-                running_process.finish_clock_time = clock_time
+                print(running_process, "is done")
                 process_count -= 1
                 mode = KERNEL_MODE
             if my_quantum == 0:
+                print(i)
+                print("process_count", process_count)
                 if i < process_count - 1:
                     i += 1
                     running_process = ready_queue[i]
@@ -67,7 +70,6 @@ def RR(ready_queue, quantum):
                     i = 0
                     running_process = ready_queue[0]
                     my_quantum = quantum
-
         if process_count == 0:
             mode = KERNEL_MODE
 
@@ -75,6 +77,7 @@ def RR(ready_queue, quantum):
             if running_process == None:
                 running_process = ready_queue[0]
             if running_process.is_done():
+                running_process.finish_clock_time = clock_time
                 del ready_queue[0]
                 if ready_queue:
                     running_process = ready_queue[0]
@@ -90,20 +93,35 @@ def FCFS(ready_queue):
     clock_time = 0
 
     while ready_queue:
+        print("top of while loop")
         if mode == USER_MODE:
+            print("user mode")
             clock_time += 1
+            print("clock_time: ", clock_time)
+            print("burst time was: ", getBurstTime(running_process))
             running_process.sim_run()
+            print("burst time now: ", getBurstTime(running_process))
             if running_process.is_done():
+                print("running_process is done from user mode")
                 mode = KERNEL_MODE
+                print("mode set to kernel mode")
         elif mode == KERNEL_MODE:
+            print("kernel mode")
             if running_process == None:
                 running_process = ready_queue[0]
+                print("no running process, so set to ready_queue[0]")
             if running_process.is_done():
+                print("running process is done from kernel mode")
                 running_process.finish_clock_time = clock_time
+                print("process finished with clock_time ", clock_time)
+                print("deleting ", ready_queue[0])
                 del ready_queue[0]
                 if ready_queue:
+                    print("ready_queue not empty")
                     running_process = ready_queue[0]
+                    print("running process set to ", running_process)
             mode = USER_MODE
+            print("user mode entered from kernel mode")
     return rq_copy
 
 def printStats(process_list):
@@ -122,12 +140,12 @@ def printStats(process_list):
 
 READY_QUEUE = [ Process(1,10,pr=3), Process(2,8,pr=1), Process(3,4,pr=2) ]
 
-print("\n\nFCFS SCHEDULING")
-printStats( FCFS(copy.deepcopy(READY_QUEUE)) )
-print("\n\nNP_PRIORITY SCHEDULING")
-printStats( NP_PRIORITY(copy.deepcopy(READY_QUEUE)) )
-print("\n\nSJF SCHEDULING")
-printStats( SJF(copy.deepcopy(READY_QUEUE)) )
+#print("\n\nFCFS SCHEDULING")
+#printStats( FCFS(copy.deepcopy(READY_QUEUE)) )
+#print("\n\nNP_PRIORITY SCHEDULING")
+#printStats( NP_PRIORITY(copy.deepcopy(READY_QUEUE)) )
+#print("\n\nSJF SCHEDULING")
+#printStats( SJF(copy.deepcopy(READY_QUEUE)) )
 print("\n\nRR SCHEDULING")
 printStats( RR(copy.deepcopy(READY_QUEUE), 4) )
 

@@ -24,9 +24,6 @@ def getPriority(process):
 def getBurstTime(process):
     return process.burst_time
 
-def getRemainingBurstTime(process):
-    return process.remaining_burst_time
-
 def NP_PRIORITY(ready_queue):
     rq_copy = ready_queue.copy()
     sorted_rq = sorted(rq_copy, key=lambda x: x.priority)
@@ -50,31 +47,24 @@ def RR(ready_queue, quantum):
     i = 0
 
     while ready_queue:
-        if mode == USER_MODE and process_count > 0:
-            my_quantum -= 1
-            clock_time += 1
-            running_process.sim_run()
-            if running_process.is_done():
-                running_process.finish_clock_time = clock_time
-                process_count -= 1
-                mode = KERNEL_MODE
-            if my_quantum == 0:
-                if i < process_count - 1:
-                    i += 1
-                    running_process = ready_queue[i]
-                    my_quantum = quantum
-                elif i >= process_count - 1:
+        if mode == USER_MODE:
+            if my_quantum >= getBurstTime(running_process):
+                my_quantum -= 1
+                clock_time += 1
+                running_process.sim_run()
+                if running_process.is_done():
+                    mode = KERNEL_MODE
+            elif my_quantum < getBurstTime(running_process):
+                if i < process_count:
+                    running_process = ready_queue[++i]
+                elif i >= process_count:
                     i = 0
                     running_process = ready_queue[0]
-                    my_quantum = quantum
-
-        if process_count == 0:
-            mode = KERNEL_MODE
-
-        if mode == KERNEL_MODE:
+        elif mode == KERNEL_MODE:
             if running_process == None:
                 running_process = ready_queue[0]
             if running_process.is_done():
+                running_process.finish_clock_time = clock_time
                 del ready_queue[0]
                 if ready_queue:
                     running_process = ready_queue[0]
@@ -90,6 +80,7 @@ def FCFS(ready_queue):
     clock_time = 0
 
     while ready_queue:
+
         if mode == USER_MODE:
             clock_time += 1
             running_process.sim_run()
