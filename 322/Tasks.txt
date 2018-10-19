@@ -1,4 +1,8 @@
 - Buy X220T battery
 - Buy sleeve case for Kindle
 
+* CSC 371 Print out physical lab instructions
+* CSC 390 Exercise: button web events due Oct 22
 * CSC 431 Assignment 3 due Oct 23
+* CSC 390 Group Project Proposal due Oct 23
+* CSC 390 Mini-Project 3 due Nov 5
