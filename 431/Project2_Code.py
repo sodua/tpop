@@ -42,7 +42,7 @@ def SJF(ready_queue):
 def RR(ready_queue, quantum):
     rq_copy = ready_queue.copy()
     USER_MODE, KERNEL_MODE = 0,1
-    mode = KERNEL_MODE
+    mode = USER_MODE
     running_process = None
     clock_time = 0
     my_quantum = quantum
@@ -51,33 +51,35 @@ def RR(ready_queue, quantum):
     i = 0
 
     while ready_queue:
-        if mode == USER_MODE and process_count > 0:
+        if mode == USER_MODE:
             my_quantum -= 1
             clock_time += 1
             running_process.sim_run()
+            print(running_process, "clock:", clock_time, "remaining:", getRemainingBurstTime(running_process), "q:", my_quantum)
 
-            if running_process.is_done():
-                running_process.finish_clock_time = clock_time
+            if running_process.is_done() or my_quantum == 0:
                 mode = KERNEL_MODE
 
-        if process_count == 0 or my_quantum == 0:
-            mode = KERNEL_MODE
-
         if mode == KERNEL_MODE:
-            if running_process == None:
-                running_process = ready_queue[0]
+            my_quantum = quantum
             if running_process.is_done():
+                running_process.finish_clock_time = clock_time
+                print(ready_queue[i], "deleted")
                 del ready_queue[i]
                 process_count -= 1
-            if running_process.is_done() or my_quantum == 0:
-                if i < process_count - 1:
-                    i += 1
-                    running_process = ready_queue[i]
-
-                elif i >= process_count - 1:
+                i -= 1
+            if i < process_count - 1:
+                print(process_count, "processes", "i is at", i)
+                i += 1
+                print("i increased to", i)
+                running_process = ready_queue[i]
+                print(running_process, "switched in from next")
+            elif i >= process_count - 1:
+                print(i, "<- VALUE OF i FROM FIRST,", process_count, "PROCESSES")
+                if ready_queue:
                     i = 0
-                    if ready_queue:
-                        running_process = ready_queue[0]
+                    running_process = ready_queue[0]
+                    print(running_process, "switched in from first")
             mode = USER_MODE
     return rq_copy
 
