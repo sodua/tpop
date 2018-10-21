@@ -5,4 +5,5 @@
 * CSC 390 Exercise: button web events due Oct 22
 * CSC 431 Assignment 3 due Oct 23
 * CSC 390 Group Project Proposal due Oct 23
+* Take CLA Oct 30-Nov 8
 * CSC 390 Mini-Project 3 due Nov 5
