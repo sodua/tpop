@@ -46,6 +46,7 @@ def RR(ready_queue, quantum):
     running_process = None
     clock_time = 0
     my_quantum = quantum
+    running_process = ready_queue[0]
     process_count = len(rq_copy)
     i = 0
 
@@ -54,30 +55,29 @@ def RR(ready_queue, quantum):
             my_quantum -= 1
             clock_time += 1
             running_process.sim_run()
+
             if running_process.is_done():
                 running_process.finish_clock_time = clock_time
-                process_count -= 1
                 mode = KERNEL_MODE
-            if my_quantum == 0:
-                if i < process_count - 1:
-                    i += 1
-                    running_process = ready_queue[i]
-                    my_quantum = quantum
-                elif i >= process_count - 1:
-                    i = 0
-                    running_process = ready_queue[0]
-                    my_quantum = quantum
 
-        if process_count == 0:
+        if process_count == 0 or my_quantum == 0:
             mode = KERNEL_MODE
 
         if mode == KERNEL_MODE:
             if running_process == None:
                 running_process = ready_queue[0]
             if running_process.is_done():
-                del ready_queue[0]
-                if ready_queue:
-                    running_process = ready_queue[0]
+                del ready_queue[i]
+                process_count -= 1
+            if running_process.is_done() or my_quantum == 0:
+                if i < process_count - 1:
+                    i += 1
+                    running_process = ready_queue[i]
+
+                elif i >= process_count - 1:
+                    i = 0
+                    if ready_queue:
+                        running_process = ready_queue[0]
             mode = USER_MODE
     return rq_copy
 
@@ -121,6 +121,8 @@ def printStats(process_list):
     print("\naverage turnaround time = "+str(avg_turnaround_t) +", average wait time = "+str(avg_wait_t))
 
 READY_QUEUE = [ Process(1,10,pr=3), Process(2,8,pr=1), Process(3,4,pr=2) ]
+#READY_QUEUE = [ Process(1,24,pr=3), Process(2,3,pr=1), Process(3,3,pr=2) ]
+#READY_QUEUE = [ Process(1,4,pr=3), Process(2,10,pr=1), Process(3,1,pr=2) ]
 
 print("\n\nFCFS SCHEDULING")
 printStats( FCFS(copy.deepcopy(READY_QUEUE)) )
