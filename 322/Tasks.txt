@@ -3,5 +3,5 @@
 
 * CSC 431 Study for test Thursday Oct 25 
 * CSC 371 Packet Tracer 6 due Oct 27
-* Take CLA Oct 30-Nov 8
 * CSC 390 Mini-Project 3 due Nov 5
+* Take CLA SBE 214 2PM Thurs Nov 8
