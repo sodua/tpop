@@ -1,3 +1,15 @@
+/* Enables pressing the keyboard Enter key to 
+ * submit a password attempt
+*/
+
+$(function(){
+	$("#passcode").keypress(function(e){
+		if (e.keyCode == 13){
+			$("#btnEnter").trigger('click');
+			}
+	})
+});
+
 /* Adds given text value to the password text 
  * field
  */
