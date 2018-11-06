@@ -2,3 +2,12 @@
  * at position p set to the rightmost n bits of y, leaving the other bits
  * unchanged.
  */
+#include <stdio.h>
+
+int main(void)
+{
+    int n = 1111;
+    n = n & 1000;
+    printf("%d\n", n);
+
+}
