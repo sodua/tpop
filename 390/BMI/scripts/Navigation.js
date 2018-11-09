@@ -2,27 +2,30 @@
  * submit a password attempt
 */
 
-$(function(){
-	$("#passcode").keypress(function(e){
-		if (e.keyCode == 13){
-			$("#btnEnter").trigger('click');
-			}
-	})
+$(function() {
+  $("#passcode").keypress(function(e) {
+    if (e.keyCode == 13) {
+	  $("#btnEnter").trigger('click');
+	}
+  })
 });
 
 /* Adds given text value to the password text 
  * field
  */
 
-$(".btn").click(function(){
-	var currVal = $("#passcode").val();
-    i=$(this).data("value");
-    if (i == "bksp") {
-		$("#passcode").val(currVal.substring(0, currVal.length - 1));
-	} else {
-		$("#passcode").val(currVal.concat(i))
-	}
-});
+const btns = Array.from(document.querySelectorAll(".btn"));
+for (var i = 0; i < btns.length; i++) (function(i) {
+  btns[i].onclick = function() {
+    var currVal = $("#passcode").val();
+    var numPad = btns[i].getAttribute("value");
+    if (numPad == "bksp") {
+      $("#passcode").val(currVal.substring(0, currVal.length - 1));
+    } else {
+      $("#passcode").val(currVal.concat(numPad))
+    } 
+  }
+})(i);
 
 /* 
  * Retrieves password from local storage if it
