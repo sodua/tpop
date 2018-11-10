@@ -14,15 +14,15 @@ $(function() {
  * field
  */
 
-const btns = Array.from(document.querySelectorAll(".btn"));
-for (var i = 0; i < btns.length; i++) (function(i) {
+let btns = Array.from(document.querySelectorAll(".btn"));
+for (let i = 0; i < btns.length; i++) (function(i) {
   btns[i].onclick = function() {
-    var currVal = document.getElementById("passcode").value;
-    var numPad = btns[i].getAttribute("value");
+    let currVal = document.getElementById("passcode").value;
+    let numPad = btns[i].getAttribute("value");
     if (numPad == "bksp") {
-      $("#passcode").val(currVal.substring(0, currVal.length - 1));
+      document.getElementById("passcode").value = (currVal.substring(0, currVal.length - 1));
     } else {
-      $("#passcode").val(currVal.concat(numPad))
+      document.getElementById("passcode").value = (currVal.concat(numPad))
     } 
   }
 })(i);
