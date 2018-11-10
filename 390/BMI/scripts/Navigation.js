@@ -17,7 +17,7 @@ $(function() {
 const btns = Array.from(document.querySelectorAll(".btn"));
 for (var i = 0; i < btns.length; i++) (function(i) {
   btns[i].onclick = function() {
-    var currVal = $("#passcode").val();
+    var currVal = document.getElementById("passcode").value;
     var numPad = btns[i].getAttribute("value");
     if (numPad == "bksp") {
       $("#passcode").val(currVal.substring(0, currVal.length - 1));
