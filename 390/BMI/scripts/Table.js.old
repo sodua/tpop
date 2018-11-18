@@ -143,12 +143,11 @@ function listRecords() {
       "<thead>" +
       "   <tr>" +
       "     <th>Date</th>" +
-      "     <th>Systolic&nbsp;</th>" +
-      "     <th>Diastolic&nbsp;</th>" +
-      "     <th>Height&nbsp;</th>" +
-      "     <th>Weight&nbsp;</th>" +
-      "     <th>BMI&nbsp;</th>" +
-      "     <th>BMI Type&nbsp;</th>" +
+      "     <th>Systolic</th>" +
+      "     <th>Diastolic</th>" +
+      "     <th>Height</th>" +
+      "     <th>Weight</th>" +
+      "     <th>BMI</th>" +
       "     <th>Edit / Delete</th>" +
       "   </tr>" +
       "</thead>" +
@@ -165,9 +164,7 @@ function listRecords() {
         "  <td align=\"center\">" + rec.Diastolic + "</td>" +
         "  <td align=\"center\">" + rec.Height + "</td>" +
         "  <td align=\"center\">" + rec.Weight + "</td>" +
-        "  <td align=\"center\">" + rec.BMI + "</td>" +
-        "  <td align=\"center\">" + rec.BMIType +
-        "</td>" +
+        "  <td align=\"center\">" + rec.Weight/rec.Height**2 + "</td>" +
         "  <td><a data-inline='true'  data-mini='true' data-role='button' href='#pageNewRecordForm' onclick='callEdit(" +
         i +
         ")' data-icon='edit' data-iconpos='notext'></a>" +
@@ -195,7 +192,6 @@ function showRecordForm(index) {
     $('#txtDiastolic').val(rec.Diastolic);
     $('#txtHeight').val(rec.Height);
     $('#txtWeight').val(rec.Weight);
-
   } catch (e) {
     /* Google browsers use different error 
      * constant
@@ -264,18 +260,8 @@ function addRecord() {
       "Systolic": $('#txtSystolic').val(),
       "Diastolic": $('#txtDiastolic').val(),
       "Height": $('#txtHeight').val(),
-      "Weight": $('#txtWeight').val(),
-      "BMI": ($('#txtWeight').val()/$('#txtHeight').val()**2).toFixed(2),
-      };
-      
-    if (record.BMI < 18.5)
-      record['BMIType'] = "Underweight";
-    else if (record.BMI >= 18.5 && record.BMI <= 25)
-      record['BMIType'] = "Normal";
-    else if (record.BMI > 25 && record.BMI <= 30)
-      record['BMIType'] = "Overweight";
-    else if (record.BMI > 30)
-      record['BMIType'] = "Obese";
+      "Weight": $('#txtWeight').val()
+    };
 
     try {
       var tbRecords = JSON.parse(localStorage.getItem(
@@ -359,24 +345,12 @@ function editRecord(index) {
         "Systolic": $('#txtSystolic').val(),
         "Diastolic": $('#txtDiastolic').val(),
         "Height": $('#txtHeight').val(),
-        "Weight": $('#txtWeight').val(),
-        "BMI": ($('#txtWeight').val()/$('#txtHeight').val()**2).toFixed(2)
+        "Weight": $('#txtWeight').val()
       }; //Alter the selected item in the array
-
-	if (tbRecords[index].BMI < 18.5)
-      tbRecords[index]['BMIType'] = "Underweight";
-    else if (tbRecords[index].BMI >= 18.5 && tbRecords[index].BMI <= 25)
-      tbRecords[index]['BMIType'] = "Normal";
-    else if (tbRecords[index].BMI > 25 && tbRecords[index].BMI <= 30)
-      tbRecords[index]['BMIType'] = "Overweight";
-    else if (tbRecords[index].BMI > 30)
-      tbRecords[index]['BMIType'] = "Obese";
-
-    tbRecords.sort(compareDates);
-	localStorage.setItem("tbRecords", JSON.stringify(
+      tbRecords.sort(compareDates);
+      localStorage.setItem("tbRecords", JSON.stringify(
         tbRecords)); //Saving array to local storage
-      //localStorage.setItem("user", JSON.stringify(user));
-	alert("Saving Information");
+      alert("Saving Information");
       clearRecordForm();
       listRecords();
     } catch (e) {

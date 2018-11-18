@@ -7,17 +7,15 @@ function drawGraph() {
   } else {
     setupCanvas();
 
-    var BMIarr = new Array();
+    var TSHarr = new Array();
     var Datearr = new Array();
-    getBMIhistory(BMIarr, Datearr);
+    getTSHhistory(TSHarr, Datearr);
 
-    var bmiLower = new Array(2);
-    var bmiUpper = new Array(2);
+    var tshLower = new Array(2);
+    var tshUpper = new Array(2);
+    getTSHbounds(tshLower, tshUpper);
 
-    bmiLower[0] = bmiLower[1] = 18.5;
-    bmiUpper[0] = bmiUpper[1] = 25;
-
-    drawLines(BMIarr, bmiUpper, bmiLower,
+    drawLines(TSHarr, tshUpper, tshLower,
       Datearr)
     labelAxes();
   }
@@ -33,7 +31,7 @@ function setupCanvas() {
 
 }
 
-function getBMIhistory(BMIarr, Datearr) {
+function getTSHhistory(TSHarr, Datearr) {
   var tbRecords = JSON.parse(localStorage.getItem(
     "tbRecords"));
 
@@ -51,17 +49,37 @@ function getBMIhistory(BMIarr, Datearr) {
     Datearr[i] = (m + "/" + d);
 
     //The point to plot
-    BMIarr[i] = parseFloat(tbRecords[i].BMI);
+    TSHarr[i] = parseFloat(tbRecords[i].BMI);
   }
 }
 
+function getTSHbounds(tshLower, tshUpper) {
+  //Get users cancer stage
+  var user = JSON.parse(localStorage.getItem(
+    "user"));
+  var TSHLevel = user.TSHRange;
+  /*These lines show upper and lower bounds
+   * of acceptable TSH levels (for each
+   * stage)
+   */
+  if (TSHLevel == "StageA") {
+    tshUpper[0] = tshUpper[1] = 0.1;
+    tshLower[0] = tshLower[1] = 0.01;
+  } else if (TSHLevel == "StageB") {
+    tshUpper[0] = tshUpper[1] = 0.5;
+    tshLower[0] = tshLower[1] = 0.1;
+  } else {
+    tshUpper[0] = tshUpper[1] = 2.0;
+    tshLower[0] = tshLower[1] = 0.35;
+  }
+}
 
-function drawLines(BMIarr, bmiUpper, bmiLower,
+function drawLines(TSHarr, tshUpper, tshLower,
   Datearr) {
-  var BMIline = new RGraph.Line("GraphCanvas",
-      BMIarr, bmiUpper, bmiLower)
+  var TSHline = new RGraph.Line("GraphCanvas",
+      TSHarr, tshUpper, tshLower)
     .Set("labels", Datearr)
-    .Set("colors", ["blue", "green", "green"])
+    .Set("colors", ["blue", "green", "red"])
     .Set("shadow", true)
     .Set("shadow.offsetx", 1)
     .Set("shadow.offsety", 1)
@@ -75,7 +93,7 @@ function drawLines(BMIarr, bmiUpper, bmiLower,
     .Set("chart.labels.ingraph", [, , ["BMI",
       "blue", "yellow", 1, 80
     ], , ])
-    .Set("chart.title", "BMI (healthy levels between green lines)")
+    .Set("chart.title", "BMI")
     .Draw();
 }
 
@@ -83,10 +101,9 @@ function labelAxes() {
   var c = document.getElementById("GraphCanvas");
   var ctx = c.getContext("2d");
   ctx.font = "11px Georgia";
-  ctx.fillStyle = "black";
+  ctx.fillStyle = "green";
   ctx.fillText("Date(MM/DD)", 400, 470);
   ctx.rotate(-Math.PI / 2);
   ctx.textAlign = "center";
-  ctx.fillStyle = "blue";
   ctx.fillText("BMI Value", -250, 10);
 }

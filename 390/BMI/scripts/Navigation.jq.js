@@ -1,7 +1,7 @@
-/* 
- * Enables pressing the keyboard Enter/Return key 
- * to submit your password
+/* Enables pressing the keyboard Enter key to 
+ * submit a password attempt
 */
+
 $(function() {
   $("#passcode").keypress(function(e) {
     if (e.keyCode == 13) {
@@ -10,22 +10,19 @@ $(function() {
   })
 });
 
-/* 
- * Adds on-screen keypad functionality to 
- * enter a password
+/* Adds given text value to the password text 
+ * field
  */
-let btns = Array.from(document.querySelectorAll(".btn"));
-for (let i = 0; i < btns.length; i++) (function(i) {
-  btns[i].onclick = function() {
-    let currVal = document.getElementById("passcode").value;
-    let numPad = btns[i].getAttribute("value");
-    if (numPad == "bksp") {
-      document.getElementById("passcode").value = (currVal.substring(0, currVal.length - 1));
-    } else {
-      document.getElementById("passcode").value = (currVal.concat(numPad))
-    } 
+
+$(".btn").click(function() {
+  var currVal = $("#passcode").val();
+  i=$(this).data("value");
+  if (i == "bksp") {
+    $("#passcode").val(currVal.substring(0, currVal.length - 1));
+  } else {
+	$("#passcode").val(currVal.concat(i))
   }
-})(i);
+});
 
 /* 
  * Retrieves password from local storage if it
