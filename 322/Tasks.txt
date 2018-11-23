@@ -4,6 +4,5 @@
 * CSC 431 Project 3 Nov 27 
 * CSC 390 Help Session 16:45 Nov 28
 * CSC 390 Career Portfolio Nov 29
-* CSC 390 Quizzes Dec 6
 * CSC 371 Final Exam Dec 7
 * CSC 390 Report & Demo Dec 11
