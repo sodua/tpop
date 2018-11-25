@@ -56,8 +56,10 @@ int LRU(int ref_str[], int n)
                 break;
             } 
             if (ref_str[i] != stack[j] && j == MAX_FRAMES - 1) {
-                if (!stk_full())
+                if (!stk_full()){
                     push(ref_str[i]);
+                    printf("HIT STACK NOT FULL\n");
+                }
                 else if (stk_full()) {
                     int my_lru = checkused(ref_str[i]);
                     printf("my_lru: %d\n", my_lru);
@@ -124,7 +126,8 @@ void push(int val)
 void push_lru(int pos, int val)
 {
     stack[pos] = val;
-    stk_idx--;
+    if (stk_idx > MAX_FRAMES)
+        stk_idx--;
 }
 
 int addused(int val)
@@ -140,7 +143,7 @@ int addused(int val)
 }
 bool have_seen(int val) {
     int i;
-    for (i=0; i < seen[seen_idx]; i++) {
+    for (i = seen_idx; i > -1; i--) {
         if (seen[i] == val)
             return true;
     }
@@ -151,15 +154,16 @@ int checkused(int val) {
     int lru_val = -1;
     int return_lru = -1;
     int i, j;
-    for(i = used_idx; i >= 0; --i) {
-        for (j = stk_idx; j >= 0; --j) {
+    seen_idx = -1;
+    for(i = used_idx; i > -1; --i) {
+        for (j = stk_idx; j > -1; --j) {
             printf("CHECKING %d against %d\n", stack[j], used[i]);
             if (stack[j] == used[i]) {
                 if (!have_seen(used[i])) {
-                        return_lru = j;
-                        seen_idx++;
-                        seen[seen_idx] = used[i];
-                        printf("SAVED %d TO SEEN!!!\n", used[i]);
+                    return_lru = j;
+                    seen_idx++;
+                    seen[seen_idx] = used[i];
+                    printf("SAVING %d to SEEN!\n", used[i]);
                 }
             }
         }
