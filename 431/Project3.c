@@ -1,10 +1,12 @@
 #include <stdio.h>
+#include <stdbool.h>
 #define MAX_FRAMES 3
 #define MAX_USED 999
 
 int stack[MAX_FRAMES] = {-1, -1, -1};
 int stk_idx = -1;
 int used[MAX_USED], used_idx = -1;
+int seen[MAX_USED], seen_idx = -1;
 
 int faults = 0;
 
@@ -18,6 +20,7 @@ void push_lru(int pos, int val);
 int stk_full();
 int addused(int val);
 int checkused(int val);
+bool have_seen(int val);
 
 int main(void)
 {
@@ -45,6 +48,7 @@ int FIFO(int ref_str[], int n)
 int LRU(int ref_str[], int n)
 {
     for (int i = 0; ref_str[i] != -1; i++) {
+        printf("REF: %d\n", ref_str[i]);
         for(int j = 0; j < MAX_FRAMES; j++) {
             if (ref_str[i] == stack[j]) {
                 printf("MATCH FOUND: %d == %d\n", stack[j], ref_str[i]);
@@ -56,21 +60,29 @@ int LRU(int ref_str[], int n)
                     push(ref_str[i]);
                 else if (stk_full()) {
                     int my_lru = checkused(ref_str[i]);
-                    printf("LRU VALUE: %d\n", used[my_lru]);
-                    push_lru(used[my_lru], ref_str[i]);
+                    printf("my_lru: %d\n", my_lru);
+                    if (my_lru >= 0)
+                        push_lru(my_lru, ref_str[i]);
+                    else {
+                        push_lru(0, ref_str[i]);
+                        printf("pushing %d to 0 of stack\n", ref_str[i]);
+                    }
                 }    
-                printf("NO MATCH: pushed %d onto stack\n", ref_str[i]);
                 addused(ref_str[i]);
                 faults++;
             }
         }
-        printf("\nREF: %d", ref_str[i]);
         printf("\nSTACK: [");
-        for (int s = 0; s <= stk_idx; s++) {
+        for (int s = 0; s < 3; s++) {
             printf("%d", stack[s]);
         }
         printf("]\n");
-    }
+        printf("\nUSED: [");
+        for (int s = 0; s < used_idx; s++) {
+            printf("%d", used[s]);
+        }
+        printf("]\n");
+}
     printf("FAULTS: %d\n", faults);
 }
 
@@ -85,7 +97,6 @@ void pop()
         //empty
     }
     else {
-        printf("Deleting %d\n", stack[0]);
         for(int i = 0; i < MAX_FRAMES - 1; i++) {
             stack[i] = stack[i + 1];
         }
@@ -113,7 +124,7 @@ void push(int val)
 void push_lru(int pos, int val)
 {
     stack[pos] = val;
-    pop();
+    stk_idx--;
 }
 
 int addused(int val)
@@ -127,15 +138,31 @@ int addused(int val)
         used[used_idx] = val;
     }
 }
+bool have_seen(int val) {
+    int i;
+    for (i=0; i < seen[seen_idx]; i++) {
+        if (seen[i] == val)
+            return true;
+    }
+    return false;
+}
 
 int checkused(int val) {
     int lru_val = -1;
-    printf("TOTAL: %d\n", used_idx + 1);
-    for(int i = used_idx - 1; i >= 0; --i) {
-        if (used[i] == val) {
-            lru_val = i;
+    int return_lru = -1;
+    int i, j;
+    for(i = used_idx; i >= 0; --i) {
+        for (j = stk_idx; j >= 0; --j) {
+            printf("CHECKING %d against %d\n", stack[j], used[i]);
+            if (stack[j] == used[i]) {
+                if (!have_seen(used[i])) {
+                        return_lru = j;
+                        seen_idx++;
+                        seen[seen_idx] = used[i];
+                        printf("SAVED %d TO SEEN!!!\n", used[i]);
+                }
+            }
         }
     }
-    printf("lru_val to be returned: %d\n", lru_val);
-    return lru_val;
+    return return_lru;
 }
