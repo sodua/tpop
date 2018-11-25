@@ -14,7 +14,8 @@ int OPT(int ref_str[], int n);
 
 void pop();
 void push(int val);
-void push_lru(int val);
+void push_lru(int pos, int val);
+int stk_full();
 int addused(int val);
 int checkused(int val);
 
@@ -43,35 +44,32 @@ int FIFO(int ref_str[], int n)
 
 int LRU(int ref_str[], int n)
 {
-    // compare ref with all items in stack, if not found faults++
-    // else i++
-    // add each ref_str[i] to another stack
-    // check used[] for match with lowest j
-    // if stack is empty or less than MAX-1, add to stack
-    // if stack is full, pop then add to stack
     for (int i = 0; ref_str[i] != -1; i++) {
+        for(int j = 0; j < MAX_FRAMES; j++) {
+            if (ref_str[i] == stack[j]) {
+                printf("MATCH FOUND: %d == %d\n", stack[j], ref_str[i]);
+                addused(ref_str[i]);
+                break;
+            } 
+            if (ref_str[i] != stack[j] && j == MAX_FRAMES - 1) {
+                if (!stk_full())
+                    push(ref_str[i]);
+                else if (stk_full()) {
+                    int my_lru = checkused(ref_str[i]);
+                    printf("LRU VALUE: %d\n", used[my_lru]);
+                    push_lru(used[my_lru], ref_str[i]);
+                }    
+                printf("NO MATCH: pushed %d onto stack\n", ref_str[i]);
+                addused(ref_str[i]);
+                faults++;
+            }
+        }
+        printf("\nREF: %d", ref_str[i]);
         printf("\nSTACK: [");
         for (int s = 0; s <= stk_idx; s++) {
             printf("%d", stack[s]);
         }
         printf("]\n");
-        for(int j = 0; j < MAX_FRAMES; j++) {
-            if (ref_str[i] == stack[j]) {
-                printf("MATCH FOUND: j = %d. ref: %d == ", stack[j], ref_str[i]);
-                addused(ref_str[i]);
-                break;
-            } 
-            if (ref_str[i] != stack[j] && j == MAX_FRAMES - 1) {
-                push(ref_str[i]);
-                int my_lru = checkused(ref_str[i]);
-                if (my_lru >= 0)
-                    printf("LRU VALUE: %d\n", used[my_lru]);
-                printf("NO MATCH: pushed %d onto stack\n", ref_str[i]);
-                addused(ref_str[i]);
-                faults++;
-            }
-            
-        }
     }
     printf("FAULTS: %d\n", faults);
 }
@@ -95,6 +93,14 @@ void pop()
     }
 }
 
+int stk_full()
+{
+    if (stk_idx == MAX_FRAMES - 1)
+        return 1;
+    else
+        return 0;
+}
+
 void push(int val)
 {
     if (stk_idx == MAX_FRAMES - 1) {
@@ -104,13 +110,10 @@ void push(int val)
     stack[stk_idx] = val;
 }
 
-void push_lru(int val)
+void push_lru(int pos, int val)
 {
-    if (stk_idx == MAX_FRAMES - 1) {
-        pop(); 
-    }
-    stk_idx++;
-    stack[stk_idx] = val;
+    stack[pos] = val;
+    pop();
 }
 
 int addused(int val)
@@ -127,7 +130,8 @@ int addused(int val)
 
 int checkused(int val) {
     int lru_val = -1;
-    for(int i = used_idx; i > 0; i--) {
+    printf("TOTAL: %d\n", used_idx + 1);
+    for(int i = used_idx - 1; i >= 0; --i) {
         if (used[i] == val) {
             lru_val = i;
         }
@@ -135,4 +139,3 @@ int checkused(int val) {
     printf("lru_val to be returned: %d\n", lru_val);
     return lru_val;
 }
-
