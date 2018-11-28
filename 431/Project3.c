@@ -7,7 +7,6 @@ int stack[3] = {-1, -1, -1};
 int stk_idx = -1;
 int used[MAX_USED], used_idx = -1;
 int seen[MAX_USED], seen_idx = -1;
-int opt_idx = -1;
 
 int faults = 0;
 
@@ -21,8 +20,6 @@ void push_lru(int pos, int val);
 bool stk_full();
 int addused(int val);
 int checkused(int val);
-int checkopt(int ref_str[], int val);
-int opt_seen(int val);
 bool have_seen(int val);
 void reset_values();
 
@@ -42,8 +39,15 @@ int main(void)
     printf("FIFO: %d\n", FIFO(ref_str, n));
     reset_values();
     printf("LRU: %d\n", LRU(ref_str, n));
-    reset_values();
-    printf("OPT: %d\n", OPT(ref_str, n));
+    
+    /*
+     * I was not able to implement the optimal page replacement
+     * algorithm because I found difficulty in eliminating the
+     * reference elements and solving tie-breaking scenarios,
+     * such as when two reference elements do not appear in
+     * the remainder of the reference string.
+     */
+    OPT(ref_str, n);
 }
 
 int FIFO(int ref_str[], int n)
@@ -92,37 +96,6 @@ int LRU(int ref_str[], int n)
 
 int OPT(int ref_str[], int n)
 {
-    printf("%d starting opt_idx\n", opt_idx);
-    for (int i = 0; ref_str[i] != -1; i++) {
-        for(int j = 0; j < n; j++) {
-            if (ref_str[i] == stack[j]) {
-                opt_idx++;
-                break;
-            } 
-            if (ref_str[i] != stack[j] && j == n-1) {
-                if (!stk_full()){
-                    push(ref_str[i]);
-                }
-                else if (stk_full()) {
-                    int my_opt = checkopt(ref_str, ref_str[i]);
-                    printf("my_opt: %d\n", my_opt);
-                    if (my_opt >= 0)
-                        push_lru(my_opt, ref_str[i]);
-                    else {
-                        push_lru(0, ref_str[i]);
-                    }
-                }    
-                opt_idx++;
-                faults++;
-            }
-        }
-        printf("[");
-        for (int z = 0; z < 3; z++) {
-            printf("%d", stack[z]);
-        }
-        printf("]\n");
-    }
-    return faults;
 }
 
 void pop()
@@ -173,22 +146,14 @@ int addused(int val)
         used[used_idx] = val;
     }
 }
+
 bool have_seen(int val) {
     int i;
-    for (i = seen_idx; i > -1; i--) {
+    for (i = seen_idx; i >= 0; i--) {
         if (seen[i] == val)
             return true;
     }
     return false;
-}
-
-int opt_seen(int val) {
-    int i;
-    for (i = seen_idx; i > -1; i--) {
-        if (seen[i] == val)
-            return i; 
-    }
-    return -1; 
 }
 
 int checkused(int val) {
@@ -196,8 +161,8 @@ int checkused(int val) {
     int return_lru = -1;
     int i, j;
     seen_idx = -1;
-    for(i = used_idx; i > -1; --i) {
-        for (j = stk_idx; j > -1; --j) {
+    for(i = used_idx; i >= 0; --i) {
+        for (j = stk_idx; j >= 0; --j) {
             if (stack[j] == used[i]) {
                 if (!have_seen(used[i])) {
                     return_lru = j;
@@ -208,28 +173,6 @@ int checkused(int val) {
         }
     }
     return return_lru;
-}
-
-int checkopt(int ref_str[], int val) {
-    int opt_val = -1;
-    int winner = 0;
-    int return_opt = -1;
-    int i, j;
-    for(i = 19; i > opt_idx; i--) {
-        for (j = stk_idx; j > -1; --j) {
-            printf("comparing %d to %d\n", stack[j], ref_str[i]);
-            if (stack[j] == ref_str[i]) {
-                if (have_seen(stack[j])) {
-                    return_opt = j;
-                    printf("%d is THE MATCH\n", return_opt);
-                    seen_idx++;
-                    seen[seen_idx] = stack[j];
-                }
-            }
-        }
-    }
-printf("ABOUT TO RETURN %d!\n", return_opt);
-return return_opt;
 }
 
 void reset_values()
