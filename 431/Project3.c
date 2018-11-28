@@ -42,10 +42,10 @@ int main(void)
     
     /*
      * I was not able to implement the optimal page replacement
-     * algorithm because I found difficulty in eliminating the
-     * reference elements and solving tie-breaking scenarios,
-     * such as when two reference elements do not appear in
-     * the remainder of the reference string.
+     * algorithm because I found difficulty in eliminating two
+     * reference elements and keeping the "winner." Not to mention
+     * solving tie-breaking scenarios, such as when two stack 
+     * elements do not appear in the remainder of the reference string.
      */
     OPT(ref_str, n);
 }
