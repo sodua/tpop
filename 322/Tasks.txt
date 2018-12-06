@@ -1,7 +1,6 @@
 - Buy X220T battery
 - Buy sleeve case for Kindle
 
-* CSC 431 Take-home Test 4 Dec 6
 * CSC 390 Peer and self evaluation Dec 7
 * CSC 371 Final Exam 12:00 Dec 11 
 * CSC 390 Report & Demo Dec 11
