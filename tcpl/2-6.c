@@ -3,11 +3,16 @@
  * unchanged.
  */
 #include <stdio.h>
+unsigned setbits(unsigned x, int p, int n, int y);
 
 int main(void)
 {
-    int n = 1111;
-    n = n & 1000;
-    printf("%d\n", n);
+    int x = 220;
+    printf("%d\n", setbits(x, 4, 3, 2));
 
+}
+
+unsigned setbits(unsigned x, int p, int n, int y)
+{
+    return (x >> (p+1-n)) & (~0 << n);
 }
