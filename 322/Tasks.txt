@@ -1,8 +1,13 @@
 - Buy X220T battery
 - Buy USB battery bank
-- Buy webhosting and domain
+- Buy fsf.org GNU books
 - Buy running shoes
 - Buy 11" Jessup grip
-- Buy NYTimes subscription
+- Buy 56mm Spitfire Classics
+- Buy webhosting and domain
+
+- iOS/Swift/ObjC book
+- Android/Java book
+- JavaScript/Node.js book
 
 * Read Woodward and Bernstein articles
