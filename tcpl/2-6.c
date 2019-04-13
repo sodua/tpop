@@ -7,12 +7,23 @@ unsigned setbits(unsigned x, int p, int n, int y);
 
 int main(void)
 {
-    int x = 220;
-    printf("%d\n", setbits(x, 4, 3, 2));
+    int x = 202;
+    int y = 211;
+    printf("%d\n", setbits(x, 4, 3, y));
 
+}
+
+unsigned create_mask(unsigned a, unsigned b)
+{
+   unsigned r = 0;
+   for (unsigned i=a; i<=b; i++)
+       r |= 1 << i;
+
+   return r;
 }
 
 unsigned setbits(unsigned x, int p, int n, int y)
 {
-    return (x >> (p+1-n)) & (~0 << n);
+	unsigned mask = create_mask(p, p+n);
+    return ((y & ~mask) | (x & mask));
 }
