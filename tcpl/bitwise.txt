@@ -1,0 +1,20 @@
+AND (&):     result is 1 only if both bits are 1.
+             (can be used to implement a set intersection)
+
+OR (|):      result is 1 if one of either bits is 1, and 0 only when both bits are 0.
+             (can be used to turn bits on)
+
+XOR (^):     result is 0 only when we have two 0's or two 1's.
+             (equivalent to adding two bits and discarding the carry)
+
+NOT (~):     ones' complement, bits get inverted, 1's become 0's, 0's become 1's.
+
+right shift: shifts each bit in left operand to the right according to right operand.
+             (must be unsigned type to pad with 0's, otherwise relies on compiler to
+             perform arithmetic shift, causing the blank to be filled with the sign bit
+             of the left operand)
+
+left shift:  the most-significant bit is lost and a 0 added at least-significant.
+             (can be used to multiply an integer by powers of 2)
+
+

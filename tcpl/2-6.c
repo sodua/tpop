@@ -21,11 +21,6 @@ unsigned create_mask(unsigned a, unsigned b)
        r |= 1 << i;
    }
 
-
-/* OR: result is 1 if one of either bits is 1, and 0 only when both bits are 0
- * left shift: the most-significant bit is lost and a 0 added at least-significant
- */
-
    return r;
 }
 
@@ -33,10 +28,9 @@ unsigned setbits(unsigned x, int p, int n, int y)
 {
 	unsigned mask = create_mask(p, p+n);
     printf("mask is %u\n", mask);
-    printf("1's compliment of mask is %d\n", ~mask);
+    unsigned char d = ~mask;
+    printf("1's compliment of mask is %d\n", d);
     printf("y AND 1's compliment of mask is %d\n", (y & ~mask));
     printf("x AND mask is %d\n", (x & mask));
     return ((y & ~mask) | (x & mask));
-    /* AND: result is 1 only if both bits are 1
-     * OR: used to turn bits on */
 }

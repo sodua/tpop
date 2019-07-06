@@ -4,7 +4,8 @@ int bitcount(unsigned x);
 
 int main(void)
 {
-    printf("%d is the number of 1 bits\n", bitcount(240));
+    unsigned d = 211;
+    printf("%d is the number of 1 bits\n", bitcount(d));
 }
 
 int bitcount(unsigned x)
