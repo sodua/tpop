@@ -30,12 +30,10 @@ int escape(char s[], char t[])
             case '\t':
                s[++i] = '\\';
                s[++i] = 't';
-               printf("inserting tab\n");
                break;
             case '\n':
                s[++i] = '\\';
                s[++i] = 'n';
-               printf("inserting newline\n");
                break;
             default:
                s[++i] = t[j];
