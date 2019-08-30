@@ -10,6 +10,7 @@ double atof(char s[])
 {
     double val, power, result, eresult;
     int i, sign, epower, eval;
+    int isfloat = 0;
 
     for (i = 0; isspace(s[i]); i++)     /* skip white space */
         ;
@@ -18,8 +19,10 @@ double atof(char s[])
         i++;
     for (val = 0.0; isdigit(s[i]); i++)
         val = 10.0 * val + (s[i] - '0');
-    if (s[i] == '.')
+    if (s[i] == '.') {
         i++;
+        isfloat = 1;
+    }
     for (power = 1.0; isdigit(s[i]); i++) {
         val = 10.0 * val + (s[i] - '0');
         power *= 10.0;
@@ -33,8 +36,11 @@ double atof(char s[])
         for (eval = 0; isdigit(s[i]); i++)
             eval = 10 * eval + (s[i] - '0');
         for (i = 1; i < eval; i++)
-            result *= val;
-        if (sign == -1)
+            if (isfloat)
+                result *= result;
+            else
+                result *= val;
+        if (sign == -1) 
             result = 1 / result;
     }
     return result;
