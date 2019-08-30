@@ -30,17 +30,12 @@ double atof(char s[])
         sign = (s[i] == '-') ? -1 : 1;
         if (s[i] == '+' || s[i] == '-')
             i++;
-        for (eval = 0; isdigit(s[i]); i++) {
+        for (eval = 0; isdigit(s[i]); i++)
             eval = 10 * eval + (s[i] - '0');
-            printf("EXPONENT: %d\n", eval);
-        }
-        printf("RESULT: %g\n", result);
-        for (i = 1; i < eval; i++) {
-                printf("%g hmm\n", result *= val);
-        }
-        if (sign == -1) {
-                result = 1 / result;
-        }
+        for (i = 1; i < eval; i++)
+            result *= val;
+        if (sign == -1)
+            result = 1 / result;
     }
     return result;
 }
