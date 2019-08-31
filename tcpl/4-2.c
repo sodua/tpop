@@ -28,8 +28,9 @@ double atof(char s[])
         power *= 10.0;
     }
     result = sign * val / power;
-	if (s[i] == 'E' || s[i] == 'e') {
-		i++;
+
+    if (s[i] == 'E' || s[i] == 'e') {
+        i++;
         sign = (s[i] == '-') ? -1 : 1;
         if (s[i] == '+' || s[i] == '-')
             i++;
@@ -37,7 +38,7 @@ double atof(char s[])
             eval = 10 * eval + (s[i] - '0');
         for (i = 1; i < eval; i++)
             if (isfloat)
-                result *= result;
+                result = result * val / 10;
             else
                 result *= val;
         if (sign == -1) 
