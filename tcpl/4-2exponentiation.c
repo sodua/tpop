@@ -1,5 +1,4 @@
-/* Extend atof to handle scientific notation of the form 123.45e-6 where a
- * floating-point number may be followed by e or E and an optionally signed exponent.
+/* Extends atof to handle exponentiation by using the ^ operator. 
  */
 
 #include <ctype.h>
@@ -29,18 +28,20 @@ double atof(char s[])
     }
     result = sign * val / power;
 
-    if (s[i] == 'E' || s[i] == 'e') {
+    if (s[i] == '^') {
         i++;
         sign = (s[i] == '-') ? -1 : 1;
         if (s[i] == '+' || s[i] == '-')
             i++;
         for (eval = 0; isdigit(s[i]); i++)
             eval = 10 * eval + (s[i] - '0');
-        while (eval-- > 0)
-            result *= 10;
+        for (i = 1; i < eval; i++)
+            if (isfloat)
+                result = result * val / 10;
+            else
+                result *= val;
         if (sign == -1) 
-            while (eval-- > 0)
-                result /= 10;
+            result = 1 / result;
     }
     return result;
 }
