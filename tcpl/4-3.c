@@ -13,7 +13,7 @@ void push(double);
 double pop(void);
 double ptop(void);
 int neg = 0;
-
+int opcount = 0;
 /* reverse Polish calculator */
 int main(void)
 {
@@ -28,12 +28,15 @@ int main(void)
                     posval = atof(s);
                     printf("posval being pushed onto stack: %g\n", posval);
                     push(posval);
+                    opcount++;
+                    printf("opcount is: %d\n", opcount);
                 } 
                else if (neg == 1) {
                     negval = atof(s);
                     negval *= -1;
                     printf("negval being pushed onto stack: %g\n", negval);
                     push(negval);
+                    opcount++;
                     neg = 0;
                 }
                 break;
@@ -59,8 +62,11 @@ int main(void)
                 push(result);
                 break;
             case '-':
-                op2 = pop();
-                push(pop() - op2);
+                if (opcount == 2) {
+                    op2 = pop();
+                    printf("JUST POPPED FROM SUBTRACT!\n");
+                    push(pop() - op2);
+                }
                 break;
             case '/':
                 op2 = pop();
@@ -74,6 +80,8 @@ int main(void)
                 break;
             case '\n':
                 printf("\t%.8g\n", pop());
+                neg = 0;
+                opcount = 0;
                 break;
         }
     }
@@ -100,7 +108,7 @@ double pop(void)
     if (sp > 0)
         return val[--sp];
     else {
-        printf("error: stack empty\n");
+        printf("error: stack empty from pop\n");
     }
 }
 
@@ -122,11 +130,11 @@ int getop(char s[])
     while ((s[0] = c = getch()) == ' ' || c == '\t')
         ;
     s[1] = '\0';
-    if (c == '-') {
-        neg = 1;
-        printf("NEG BEING SET!\n");
-    }
     if (!isdigit(c) && c != '.') {
+        if (c == '-' && opcount < 2) {
+            neg = 1;
+            printf("NEGATIVE BIT SET!\n");
+        }
         printf("not a digit or dot: %d\n", c);
         return c;   /* not a number */
     }
