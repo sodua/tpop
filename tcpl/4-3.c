@@ -1,42 +1,44 @@
 #include <stdio.h>
 #include <stdlib.h>     /* for atof() */
-#include <ctype.h>
 
 #define MAXOP   100     /* max size of operand or operator */
 #define NUMBER  '0'     /* signal that a number was found */
+#include <ctype.h>
+
+int getch(void);
+void ungetch(int);
 
 int getop(char []);
 void push(double);
 double pop(void);
 double ptop(void);
-int getch(void);
-void ungetch(int);
+int neg = 0;
 
 /* reverse Polish calculator */
 int main(void)
 {
     int type, dividend, divisor, mod, look;
-    int neg = 0;
-    double intermediary, op2;
+    double op1, op2, result, negval, posval;
     char s[MAXOP];
 
     while ((type = getop(s)) != EOF) {
         switch (type) {
             case NUMBER:
-                if (neg == 0) {
-                    op2 = atof(s);
-                    break;
-                }
-                else {
-                    printf("%g is thing\n", (atof(s) * -1));
-                    pop();
-                    op2 = (atof(s) * -1);
-                    push(op2);
+               if (neg == 0) {
+                    posval = atof(s);
+                    printf("posval being pushed onto stack: %g\n", posval);
+                    push(posval);
+                } 
+               else if (neg == 1) {
+                    negval = atof(s);
+                    negval *= -1;
+                    printf("negval being pushed onto stack: %g\n", negval);
+                    push(negval);
                     neg = 0;
-                    continue;
                 }
+                break;
             case '+':
-                push(op2 + pop());
+                push(pop() + pop());
                 break;
             case '%':
                 divisor = pop();
@@ -49,18 +51,16 @@ int main(void)
                     printf("error: zero divisor\n");
                 break;
             case '*':
-                push(pop() * op2);
+                op2 = pop();
+                op1 = pop();
+                printf("%g is op2!!!\n", op2);
+                printf("%g is op1!!!\n", op1);
+                result = op1 * op2;
+                push(result);
                 break;
             case '-':
-                look = getch();
-                if (!isdigit(look)) {
-                    op2 = pop();
-                    push(pop() - op2);
-                }
-                else {
-                    printf("negative number found!\n");
-                    neg = 1;
-                }
+                op2 = pop();
+                push(pop() - op2);
                 break;
             case '/':
                 op2 = pop();
@@ -69,7 +69,7 @@ int main(void)
                 else
                     printf("error: zero divisor\n");
                 break;
-            case 'p':
+            case 'P':
                 printf("%g\n", ptop());
                 break;
             case '\n':
@@ -80,15 +80,15 @@ int main(void)
     return 0;
 }
 
-#define maxval  100     /* maximum depth of val stack */
+#define MAXVAL  100     /* maximum depth of val stack */
 
 int sp = 0;             /* next free stack position */
-double val[maxval];     /* value stack */
+double val[MAXVAL];     /* value stack */
 
 /* push:    push f onto value stack */
 void push(double f)
 {
-    if (sp < maxval)
+    if (sp < MAXVAL)
         val[sp++] = f;
     else
         printf("error: stack full, can't push %g\n", f);
@@ -114,7 +114,6 @@ double ptop(void)
 }
 
 
-
 /* getop:   get next operator or numeric operand */
 int getop(char s[])
 {
@@ -123,15 +122,26 @@ int getop(char s[])
     while ((s[0] = c = getch()) == ' ' || c == '\t')
         ;
     s[1] = '\0';
-    if (!isdigit(c) && c != '.')
+    if (c == '-') {
+        neg = 1;
+        printf("NEG BEING SET!\n");
+    }
+    if (!isdigit(c) && c != '.') {
+        printf("not a digit or dot: %d\n", c);
         return c;   /* not a number */
+    }
     i = 0;
     if (isdigit(c)) /* collect integer part */
         while (isdigit(s[++i] = c = getch()))
             ;
     s[i] = '\0';
-    if (c != EOF)
+    for (int j = 0; j < i; j++)
+        printf("VALUE: %c is s[j]\n", s[j]);
+    if (c != EOF) {
+        printf("character that is not EOF: %d\n", c);
         ungetch(c);
+    }
+
     return NUMBER;
 }
 
@@ -140,6 +150,7 @@ int  bufp = 0;      /* next free position in buf */
 
 int getch(void)     /* get a (possibly pushed back) character */
 {
+    printf("current bufp value: %d\n", bufp);
     return (bufp > 0) ? buf[--bufp] : getchar();
 }
 
