@@ -18,9 +18,11 @@ void push(double);
 double pop(void);
 double ptop(void);
 int pswap(void);
+int pdup(void);
+int pclear(void);
 int neg = 0;
 int opcount = 0;
-int print_top = 0;
+int skip_print = 0;
 /* reverse Polish calculator */
 int main(void)
 {
@@ -59,6 +61,7 @@ int main(void)
                 push(pop() * op2);
                 break;
             case '-':
+                printf("OPCOUNT: %d\n", opcount);
                 if (opcount == 2) {
                     op2 = pop();
                     push(pop() - op2);
@@ -71,25 +74,34 @@ int main(void)
                 else
                     printf("error: zero divisor\n");
                 break;
+            case 'C':
+                pclear();
+                skip_print = 1;
+                break;
+            case 'D':
+                pdup();
+                skip_print = 1;
+                break;
             case 'P':
-                printf("%g\n", ptop());
-                print_top = 1;
+                if (sp > 0)
+                    printf("%g\n", ptop());
+                skip_print = 1;
                 break;
             case 'S':
                 pswap();
-                print_top = 1;
+                skip_print = 1;
                 break;
             case '\n':
-                if (!print_top) {
+                if (!skip_print && sp > 0) {
                     printf("\t%.8g\n", ptop());
                     neg = 0;
                     opcount = 0;
                 }
                 else {
-                    print_top = 0;
+                    skip_print = 0;
                 }
-                for (int i=0; i<=sp; i++)
-                    printf("\t\t%g is value %d\n", val[i], i);
+                /*for (int i=0; i<=sp; i++)
+                    printf("\t\t%g is value %d\n", val[i], i);*/
                 break;
         }
     }
@@ -117,13 +129,23 @@ double pop(void)
 
 double ptop(void)
 {
-    if (sp >= 0)
+    if (sp > 0)
         return val[sp-1];
     else {
         printf("error: stack empty\n");
     }
 }
 
+int pdup(void)
+{
+    if (sp > 0) {
+        val[sp] = val[sp-1];
+    }
+}
+
+int pclear(void) {
+    sp = 0;    
+}
 int pswap(void)
 {
     if (sp > 0) {
