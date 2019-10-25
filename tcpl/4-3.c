@@ -96,7 +96,8 @@ int main(void)
             case '\n':
                 if (subtract == 1) {
                     op2 = pop();
-                    push(pop() - op2);
+                    push(ptop() - op2);
+                    subtract = 0;
                 }
                 if (!skip_print && sp > 0) {
                     printf("\t%.8g\n", ptop());
