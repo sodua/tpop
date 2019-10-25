@@ -108,15 +108,16 @@ int main(void)
                 }
                 break;
             default:
-                if (isalpha(type) && used[type-97] == 1) {
+                if (isalpha(type) && islower(type) && used[type-97] == 1) {
                     push(var[type-97]);
                     subtract = 0;
                 }
-                else if (isalpha(type) && used[type-97] != 1) {
-                    //printf("variable: %g saved as %c\n", ptop(), type);
+                else if (isalpha(type) && islower(type) && used[type-97] != 1) {
+                    printf("variable: %g saved as %c\n", ptop(), type);
                     var[type-97] = ptop(); 
                     used[type-97] = 1;
                     subtract = 0;
+                    skip_print = 1;
                 }
                 else
                     printf("error: unknown command %s\n", s);
