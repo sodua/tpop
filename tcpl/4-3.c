@@ -96,7 +96,7 @@ int main(void)
             case '\n':
                 if (subtract == 1) {
                     op2 = pop();
-                    push(ptop() - op2);
+                    push(pop() - op2);
                     subtract = 0;
                 }
                 if (!skip_print && sp > 0) {
